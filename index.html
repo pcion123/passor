@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AES 加密工具</title>
+    <link rel="stylesheet" href="style.css">
+    <!-- 引入 CryptoJS 庫 -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/crypto-js.min.js"></script>
+</head>
+<body>
+    <!-- 主題切換按鈕 -->
+    <button class="theme-toggle" onclick="toggleTheme()" title="切換深色/淺色主題">
+        <span class="theme-icon">🌙</span>
+    </button>
+
+    <div class="container">
+        <div class="header">
+            <h1>🔐 AES 加密/解密工具</h1>
+            <p>安全的資料加密與解密服務</p>
+        </div>
+
+        <div class="mode-selector">
+            <button type="button" class="mode-btn active" onclick="switchMode('encrypt')">
+                🔒 加密模式
+            </button>
+            <button type="button" class="mode-btn" onclick="switchMode('decrypt')">
+                🔓 解密模式
+            </button>
+        </div>
+
+        <div class="form-container">
+            <form id="cryptoForm">
+                <div class="input-group">
+                    <label for="inputData" id="inputLabel">原始資料 (Raw Data)</label>
+                    <textarea 
+                        id="inputData" 
+                        placeholder="請輸入要加密的資料..."
+                        rows="4"
+                        required
+                    ></textarea>
+                </div>
+
+                <div class="input-group">
+                    <label for="secretKey">密鑰 (Secret Key)</label>
+                    <input 
+                        type="password" 
+                        id="secretKey" 
+                        placeholder="請輸入密鑰..."
+                        required
+                    >
+                    <button type="button" class="toggle-password" onclick="togglePassword()">👁️</button>
+                </div>
+
+                <button type="submit" class="crypto-btn" id="cryptoBtn">
+                    <span class="btn-text">🔒 開始加密</span>
+                    <span class="loading" style="display: none;">⏳ 處理中...</span>
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <!-- 彈出視窗 -->
+    <div id="modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 id="modalTitle">✅ 加密完成</h2>
+                <span class="close" onclick="closeModal()">&times;</span>
+            </div>
+            <div class="modal-body">
+                <label for="cryptoResult" id="resultLabel">加密結果:</label>
+                <textarea id="cryptoResult" readonly rows="6"></textarea>
+                <div class="button-group">
+                    <button onclick="copyToClipboard()" class="copy-btn">
+                        📋 複製到剪貼簿
+                    </button>
+                    <button onclick="selectAllText()" class="select-btn">
+                        🖱️ 全選文字
+                    </button>
+                    <button onclick="closeModal()" class="close-btn">
+                        關閉
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 通知訊息 -->
+    <div id="notification" class="notification">
+        <span id="notificationText"></span>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,558 @@
+/* 加密模式主題色 */
+:root {
+    /* 淺色主題 - 加密模式 */
+    --encrypt-primary: #667eea;
+    --encrypt-secondary: #764ba2;
+    --encrypt-light: rgba(102, 126, 234, 0.1);
+    --encrypt-shadow: rgba(102, 126, 234, 0.3);
+    
+    /* 淺色主題 - 解密模式 */
+    --decrypt-primary: #fd7e14;
+    --decrypt-secondary: #e83e8c;
+    --decrypt-light: rgba(253, 126, 20, 0.1);
+    --decrypt-shadow: rgba(253, 126, 20, 0.3);
+    
+    /* 淺色主題 - 通用顏色 */
+    --bg-color: #ffffff;
+    --card-bg: #ffffff;
+    --form-bg: #f8f9fa;
+    --text-primary: #333333;
+    --text-secondary: #666666;
+    --border-color: #e1e5e9;
+    --input-bg: #ffffff;
+    --shadow-light: rgba(0, 0, 0, 0.1);
+    --shadow-medium: rgba(0, 0, 0, 0.2);
+}
+
+/* 深色主題變數 */
+[data-theme="dark"] {
+    /* 深色主題 - 加密模式 */
+    --encrypt-primary: #7c3aed;
+    --encrypt-secondary: #a855f7;
+    --encrypt-light: rgba(124, 58, 237, 0.2);
+    --encrypt-shadow: rgba(124, 58, 237, 0.4);
+    
+    /* 深色主題 - 解密模式 */
+    --decrypt-primary: #f59e0b;
+    --decrypt-secondary: #ec4899;
+    --decrypt-light: rgba(245, 158, 11, 0.2);
+    --decrypt-shadow: rgba(245, 158, 11, 0.4);
+    
+    /* 深色主題 - 通用顏色 */
+    --bg-color: #1a1a1a;
+    --card-bg: #2d2d2d;
+    --form-bg: #373737;
+    --text-primary: #ffffff;
+    --text-secondary: #b3b3b3;
+    --border-color: #404040;
+    --input-bg: #2d2d2d;
+    --shadow-light: rgba(0, 0, 0, 0.3);
+    --shadow-medium: rgba(0, 0, 0, 0.5);
+}
+
+/* 全域樣式 */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Arial', 'Microsoft YaHei', sans-serif;
+    background: linear-gradient(135deg, var(--encrypt-primary) 0%, var(--encrypt-secondary) 100%);
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    transition: background 0.5s ease;
+}
+
+/* 解密模式背景 */
+body.decrypt-mode {
+    background: linear-gradient(135deg, var(--decrypt-primary) 0%, var(--decrypt-secondary) 100%);
+}
+
+.container {
+    background: var(--card-bg);
+    border-radius: 20px;
+    box-shadow: 0 20px 40px var(--shadow-light);
+    padding: 40px;
+    max-width: 500px;
+    width: 100%;
+    animation: slideIn 0.5s ease-out;
+    transition: background 0.3s ease, box-shadow 0.3s ease;
+}
+
+@keyframes slideIn {
+    from {
+        opacity: 0;
+        transform: translateY(-30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.header {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.header h1 {
+    color: var(--text-primary);
+    font-size: 2.5em;
+    margin-bottom: 10px;
+    background: linear-gradient(45deg, var(--encrypt-primary), var(--encrypt-secondary));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    transition: background 0.5s ease;
+}
+
+/* 解密模式標題顏色 */
+body.decrypt-mode .header h1 {
+    background: linear-gradient(45deg, var(--decrypt-primary), var(--decrypt-secondary));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.header p {
+    color: var(--text-secondary);
+    font-size: 1.1em;
+    transition: color 0.3s ease;
+}
+
+/* 模式選擇器樣式 */
+.mode-selector {
+    display: flex;
+    gap: 15px;
+    margin-bottom: 30px;
+    justify-content: center;
+}
+
+.mode-btn {
+    padding: 12px 25px;
+    border: 2px solid var(--border-color);
+    border-radius: 25px;
+    background: var(--card-bg);
+    color: var(--text-secondary);
+    font-size: 1em;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.mode-btn:hover {
+    border-color: var(--encrypt-primary);
+    color: var(--encrypt-primary);
+    transform: translateY(-2px);
+}
+
+.mode-btn.active {
+    background: linear-gradient(45deg, var(--encrypt-primary), var(--encrypt-secondary));
+    color: white;
+    border-color: transparent;
+    box-shadow: 0 5px 15px var(--encrypt-shadow);
+}
+
+.mode-btn.active:hover {
+    color: white;
+    transform: translateY(-2px);
+}
+
+/* 解密模式按鈕樣式 */
+body.decrypt-mode .mode-btn:hover {
+    border-color: var(--decrypt-primary);
+    color: var(--decrypt-primary);
+}
+
+body.decrypt-mode .mode-btn.active {
+    background: linear-gradient(45deg, var(--decrypt-primary), var(--decrypt-secondary));
+    box-shadow: 0 5px 15px var(--decrypt-shadow);
+}
+
+.form-container {
+    background: var(--form-bg);
+    border-radius: 15px;
+    padding: 30px;
+    transition: background 0.3s ease;
+}
+
+.input-group {
+    margin-bottom: 25px;
+    position: relative;
+}
+
+.input-group label {
+    display: block;
+    margin-bottom: 8px;
+    color: var(--text-primary);
+    font-weight: 600;
+    font-size: 1.1em;
+    transition: color 0.3s ease;
+}
+
+.input-group input,
+.input-group textarea {
+    width: 100%;
+    padding: 15px;
+    border: 2px solid var(--border-color);
+    border-radius: 10px;
+    font-size: 16px;
+    transition: all 0.3s ease;
+    background: var(--input-bg);
+    color: var(--text-primary);
+}
+
+.input-group input:focus,
+.input-group textarea:focus {
+    outline: none;
+    border-color: var(--encrypt-primary);
+    box-shadow: 0 0 0 3px var(--encrypt-light);
+    transform: translateY(-2px);
+}
+
+/* 解密模式輸入框焦點樣式 */
+body.decrypt-mode .input-group input:focus,
+body.decrypt-mode .input-group textarea:focus {
+    border-color: var(--decrypt-primary);
+    box-shadow: 0 0 0 3px var(--decrypt-light);
+}
+
+.input-group textarea {
+    resize: vertical;
+    min-height: 100px;
+}
+
+.toggle-password {
+    position: absolute;
+    right: 15px;
+    top: 40px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 1.2em;
+    color: var(--text-secondary);
+    transition: color 0.3s ease;
+}
+
+.toggle-password:hover {
+    color: var(--encrypt-primary);
+}
+
+/* 解密模式切換密碼按鈕 */
+body.decrypt-mode .toggle-password:hover {
+    color: var(--decrypt-primary);
+}
+
+.crypto-btn {
+    width: 100%;
+    padding: 18px;
+    background: linear-gradient(45deg, var(--encrypt-primary), var(--encrypt-secondary));
+    color: white;
+    border: none;
+    border-radius: 12px;
+    font-size: 1.2em;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.crypto-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 20px var(--encrypt-shadow);
+}
+
+.crypto-btn:active {
+    transform: translateY(0);
+}
+
+.crypto-btn:disabled {
+    opacity: 0.7;
+    cursor: not-allowed;
+    transform: none;
+}
+
+/* 解密模式按鈕樣式 */
+body.decrypt-mode .crypto-btn {
+    background: linear-gradient(45deg, var(--decrypt-primary), var(--decrypt-secondary));
+}
+
+body.decrypt-mode .crypto-btn:hover {
+    box-shadow: 0 10px 20px var(--decrypt-shadow);
+}
+
+/* 彈出視窗樣式 */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    animation: fadeIn 0.3s ease;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+.modal-content {
+    background-color: var(--card-bg);
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(0.7);
+    padding: 0;
+    border-radius: 20px;
+    width: 90%;
+    max-width: 600px;
+    box-shadow: 0 20px 40px var(--shadow-medium);
+    animation: modalSlideIn 0.3s ease forwards;
+    opacity: 0;
+    transition: background-color 0.3s ease;
+}
+
+@keyframes modalSlideIn {
+    from {
+        opacity: 0;
+        transform: translate(-50%, -50%) scale(0.7);
+    }
+    to {
+        opacity: 1;
+        transform: translate(-50%, -50%) scale(1);
+    }
+}
+
+@keyframes modalSlideOut {
+    from {
+        opacity: 1;
+        transform: translate(-50%, -50%) scale(1);
+    }
+    to {
+        opacity: 0;
+        transform: translate(-50%, -50%) scale(0.7);
+    }
+}
+
+.modal-header {
+    background: linear-gradient(45deg, var(--encrypt-primary), var(--encrypt-secondary));
+    color: white;
+    padding: 25px 30px;
+    border-radius: 20px 20px 0 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    transition: background 0.3s ease;
+}
+
+/* 解密模式彈窗標題 */
+body.decrypt-mode .modal-header {
+    background: linear-gradient(45deg, var(--decrypt-primary), var(--decrypt-secondary));
+}
+
+.modal-header h2 {
+    margin: 0;
+    font-size: 1.5em;
+}
+
+.close {
+    color: white;
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: color 0.3s ease;
+    line-height: 1;
+}
+
+.close:hover {
+    color: #f0f0f0;
+}
+
+.modal-body {
+    padding: 30px;
+}
+
+.modal-body label {
+    display: block;
+    margin-bottom: 10px;
+    color: var(--text-primary);
+    font-weight: 600;
+    font-size: 1.1em;
+    transition: color 0.3s ease;
+}
+
+.modal-body textarea {
+    width: 100%;
+    padding: 15px;
+    border: 2px solid var(--border-color);
+    border-radius: 10px;
+    font-size: 14px;
+    font-family: 'Courier New', monospace;
+    background: var(--form-bg);
+    color: var(--text-primary);
+    resize: vertical;
+    margin-bottom: 20px;
+    transition: all 0.3s ease;
+}
+
+.button-group {
+    display: flex;
+    gap: 15px;
+    justify-content: flex-end;
+}
+
+.copy-btn, .select-btn, .close-btn {
+    padding: 12px 25px;
+    border: none;
+    border-radius: 8px;
+    font-size: 1em;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.copy-btn {
+    background: linear-gradient(45deg, #28a745, #20c997);
+    color: white;
+}
+
+.copy-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(40, 167, 69, 0.3);
+}
+
+.select-btn {
+    background: linear-gradient(45deg, #17a2b8, #007bff);
+    color: white;
+}
+
+.select-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(23, 162, 184, 0.3);
+}
+
+.close-btn {
+    background: #6c757d;
+    color: white;
+}
+
+.close-btn:hover {
+    background: #5a6268;
+    transform: translateY(-2px);
+}
+
+/* 通知樣式 */
+.notification {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    background: #28a745;
+    color: white;
+    padding: 15px 25px;
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+    transform: translateX(400px);
+    transition: transform 0.3s ease;
+    z-index: 1001;
+    font-weight: 600;
+}
+
+.notification.show {
+    transform: translateX(0);
+}
+
+.notification.error {
+    background: #dc3545;
+}
+
+/* 主題切換按鈕 */
+.theme-toggle {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    background: var(--card-bg);
+    border: 2px solid var(--border-color);
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    cursor: pointer;
+    font-size: 1.2em;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 15px var(--shadow-light);
+    z-index: 1000;
+}
+
+.theme-toggle:hover {
+    transform: scale(1.1);
+    box-shadow: 0 6px 20px var(--shadow-medium);
+}
+
+.theme-toggle:active {
+    transform: scale(0.95);
+}
+
+/* 響應式設計 */
+@media (max-width: 768px) {
+    .container {
+        padding: 20px;
+        margin: 10px;
+    }
+    
+    .header h1 {
+        font-size: 2em;
+    }
+    
+    .form-container {
+        padding: 20px;
+    }
+    
+    .mode-selector {
+        flex-direction: column;
+        gap: 10px;
+    }
+    
+    .mode-btn {
+        width: 100%;
+    }
+    
+    .button-group {
+        flex-direction: column;
+    }
+    
+    .copy-btn, .select-btn, .close-btn {
+        width: 100%;
+        margin-bottom: 10px;
+    }
+}
+
+/* 載入動畫 */
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+.loading::before {
+    content: '';
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    border: 2px solid #ffffff;
+    border-radius: 50%;
+    border-top-color: transparent;
+    animation: spin 1s linear infinite;
+    margin-right: 10px;
+}

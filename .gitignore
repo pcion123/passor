@@ -1,0 +1,3 @@
+### VS Code ###
+# Exclude global .vscode settings but keep project-specific ones
+# .vscode/
